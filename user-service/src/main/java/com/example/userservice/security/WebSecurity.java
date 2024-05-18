@@ -23,7 +23,7 @@ public class WebSecurity{
                 .csrf(AbstractHttpConfigurer::disable)
 
                 .authorizeHttpRequests((authorizeRequests) ->
-                        authorizeRequests.requestMatchers("/users/**", "/h2-console/**").permitAll()
+                        authorizeRequests.requestMatchers("/users/**", "/h2-console/**", "/health_check/**", "/user-service/**").permitAll()
 
                 )
 

@@ -16,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/user-service")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -33,7 +33,7 @@ public class UserController {
         this.modelMapper = modelMapper;
     }
 
-    @GetMapping("/health_check")
+    @GetMapping("/health-check")
     public String status() {
 
         return String.format("It's Working on Port %s",
