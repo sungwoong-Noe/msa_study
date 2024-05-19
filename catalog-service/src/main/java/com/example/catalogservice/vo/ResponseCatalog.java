@@ -12,7 +12,7 @@ public class ResponseCatalog {
 
 
     private String productId;
-    private Integer productName;
+    private String productName;
     private Integer unitPrice;
     private Integer stock;
     private LocalDateTime createAt;
