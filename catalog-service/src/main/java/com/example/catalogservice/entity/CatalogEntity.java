@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @Entity
 @NoArgsConstructor
 @Data
+@Table(name = "catalog")
 public class CatalogEntity implements Serializable {
 
     @Id
