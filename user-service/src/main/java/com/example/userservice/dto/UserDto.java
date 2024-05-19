@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -14,7 +15,7 @@ public class UserDto {
     private String name;
     private String pwd;
     private String userId;
-    private LocalDate createAt;
+    private LocalDateTime createAt;
 
     private String encryptedPwd;
 
