@@ -1,18 +1,19 @@
-package com.example.userservice.vo;
+package com.example.orderservice.dto;
 
 import lombok.Data;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.io.Serial;
+import java.io.Serializable;
 
 @Data
-public class ResponseOrder {
+public class OrderDto implements Serializable {
 
     private String productId;
     private Integer qty;
     private Integer unitPrice;
     private Integer totalPrice;
-    private LocalDateTime createAt;
     private String orderId;
+    private String userId;
+
 
 }
