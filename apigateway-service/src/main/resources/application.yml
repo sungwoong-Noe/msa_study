@@ -10,10 +10,39 @@ spring:
             preLogger: true
             postLogger: true
       routes:
+#        - id: user-service
+#          uri: lb://USER-SERVICE
+#          predicates:
+#            - Path= /user-service/**
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
-            - Path= /user-service/**
+            - Path=/user-service/login
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/users
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
+
+
+
+
         - id: catalog-service
           uri: lb://CATALOG-SERVICE
           predicates:
@@ -55,3 +84,6 @@ eureka:
        defaultZone: http://localhost:8761/eureka
 
 
+token:
+  expiration_time: 86400000 #하루
+  secret: 7JWI64WV7ZWY7IS47JqUIOyggOuKlCDsp4DquIggand0IOqzteu2gOykkeyeheuLiOuLpA==

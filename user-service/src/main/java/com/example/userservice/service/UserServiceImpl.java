@@ -5,8 +5,11 @@ import com.example.userservice.dto.UserDto;
 import com.example.userservice.repo.UserRepository;
 import com.example.userservice.vo.ResponseOrder;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
@@ -58,5 +62,30 @@ public class UserServiceImpl implements UserService {
     @Override
     public Iterable<UserEntity> getUserByAll() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserEntity userEntity = userRepository.findByEmail(username);
+
+        if (userEntity == null)
+            throw new UsernameNotFoundException(username + ": not found");
+
+        return new User(userEntity.getEmail(), userEntity.getEncryptedPwd(),
+                true, true, true, true,
+                new ArrayList<>());
+    }
+
+    @Override
+    public UserDto getUserDetailByEmail(String email) {
+
+        if (email == null) {
+            throw new UsernameNotFoundException("유저를 찾을 수 없습니다.");
+        }
+
+        UserEntity userEntity = userRepository.findByEmail(email);
+        UserDto userDto = modelMapper.map(userEntity, UserDto.class);
+
+        return userDto;
     }
 }

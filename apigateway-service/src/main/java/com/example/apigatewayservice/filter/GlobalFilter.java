@@ -55,10 +55,6 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
         private boolean preLogger;
         private boolean postLogger;
 
-
-
-
-
     }
 
 
