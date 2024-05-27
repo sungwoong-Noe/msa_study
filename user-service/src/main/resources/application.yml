@@ -18,8 +18,8 @@ spring:
 
 server:
   port: 0 #랜덤 포트
-  servlet:
-    context-path: /user-service
+#  servlet:
+#    context-path: /user-service
 
 
 eureka:
@@ -35,3 +35,12 @@ eureka:
 
 greeting:
   message: Welcome to the Simple E-commerce.
+logging:
+  level:
+    com.example.userservice: DEBUG
+
+
+
+token:
+  expiration_time: 86400000 #하루
+  secret: 7JWI64WV7ZWY7IS47JqUIOyggOuKlCDsp4DquIggand0IOqzteu2gOykkeyeheuLiOuLpA==
