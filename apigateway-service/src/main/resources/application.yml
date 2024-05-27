@@ -38,6 +38,7 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
 
 
 
@@ -83,3 +84,6 @@ eureka:
        defaultZone: http://localhost:8761/eureka
 
 
+token:
+  expiration_time: 86400000 #하루
+  secret: 7JWI64WV7ZWY7IS47JqUIOyggOuKlCDsp4DquIggand0IOqzteu2gOykkeyeheuLiOuLpA==
