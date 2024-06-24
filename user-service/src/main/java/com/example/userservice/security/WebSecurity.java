@@ -47,14 +47,20 @@ public class WebSecurity{
 
 
         http
+
                 .csrf(AbstractHttpConfigurer::disable)
+
+                .authorizeHttpRequests((authorizeRequests) ->
+                        authorizeRequests.requestMatchers("/users/**", "/h2-console/**", "/health_check/**", "/**", "/actuator/**").permitAll()
+
+
                 .authorizeHttpRequests((authorizeRequests) -> authorizeRequests
 //                                .requestMatchers("/**").access(hasIpAddress("127.0.0.1"))
                                 .requestMatchers(GET, "/**").permitAll()
                                 .requestMatchers(POST, "/users").permitAll()
                                 .anyRequest().authenticated()
                 )
-                .addFilter(authenticationFilter())
+
 
                 .headers(headersConfigurer ->
                         headersConfigurer

@@ -5,6 +5,8 @@ spring:
     url: jdbc:h2:mem:testdb
     username: sa
 
+
+
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -15,6 +17,12 @@ spring:
       settings:
         web-allow-others: true
       path: /h2-console
+  cloud:
+    config:
+      name: ecommerce
+  config:
+    import: optional:configserver:http://localhost:8888
+
 
 server:
   port: 0 #랜덤 포트
@@ -33,11 +41,21 @@ eureka:
       defaultZone: http://localhost:8761/eureka
 
 
+
+
 greeting:
   message: Welcome to the Simple E-commerce.
 logging:
   level:
     com.example.userservice: DEBUG
+
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans
 
 
 
