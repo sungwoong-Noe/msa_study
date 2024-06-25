@@ -20,6 +20,7 @@ spring:
   cloud:
     config:
       name: ecommerce
+#      uri: http://localhost:8888
   config:
     import: optional:configserver:http://localhost:8888
 
@@ -56,9 +57,3 @@ management:
     web:
       exposure:
         include: refresh, health, beans
-
-
-
-token:
-  expiration_time: 86400000 #하루
-  secret: 7JWI64WV7ZWY7IS47JqUIOyggOuKlCDsp4DquIggand0IOqzteu2gOykkeyeheuLiOuLpA==

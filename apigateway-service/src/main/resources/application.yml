@@ -1,7 +1,11 @@
 spring:
+  config:
+    import: optional:configserver:http://localhost:8888
   application:
     name: gateway-service
   cloud:
+    config:
+      name: ecommerce
     gateway:
       default-filters:
         - name: GlobalFilter
@@ -39,10 +43,6 @@ spring:
             - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
             - AuthorizationHeaderFilter
-
-
-
-
         - id: catalog-service
           uri: lb://CATALOG-SERVICE
           predicates:
@@ -51,6 +51,14 @@ spring:
           uri: lb://ORDER-SERVICE
           predicates:
             - Path= /order-service/**
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/actuator/**
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
 #        - id: first-service
 #          uri: lb://MY-FIRST-SERVICE
 #          predicates:
@@ -73,9 +81,6 @@ spring:
 #                preLogger: true
 #                postLogger: true
 
-
-
-
 eureka:
    client:
      register-with-eureka: true
@@ -84,6 +89,13 @@ eureka:
        defaultZone: http://localhost:8761/eureka
 
 
-token:
-  expiration_time: 86400000 #하루
-  secret: 7JWI64WV7ZWY7IS47JqUIOyggOuKlCDsp4DquIggand0IOqzteu2gOykkeyeheuLiOuLpA==
+#token:
+#  expiration_time: 86400000 #하루
+#  secret: 7JWI64WV7ZWY7IS47JqUIOyggOuKlCDsp4DquIggand0IOqzteu2gOykkeyeheuLiOuLpA==
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, httpexchanges
