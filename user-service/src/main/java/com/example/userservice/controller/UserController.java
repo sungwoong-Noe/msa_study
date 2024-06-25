@@ -38,7 +38,7 @@ public class UserController {
         this.modelMapper = modelMapper;
     }
 
-        @GetMapping("/health-check")
+    @GetMapping("/health-check")
     public String status() {
 
         return String.format("It's Working in User Service"
